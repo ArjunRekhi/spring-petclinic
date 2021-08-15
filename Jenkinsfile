@@ -39,11 +39,6 @@ publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, 
     stage('Dependency-Check ') { 
             steps {
             sh '''
-if [ -d spring-petclinic ]; then
- rm -rf spring-petclinic
-fi
-
-git clone https://github.com/spring-projects/spring-petclinic.git
 #Dependency-Check
 if [ -f "dependency-check.sh" ]; then
 rm -rf dependency-check.sh
