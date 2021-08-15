@@ -4,7 +4,7 @@ pipeline {
         stage('Building the docker image') { 
             steps {
                 sh '''
-           docker build -t owsap-pet-clinic:latest .
+           sudo docker build -t owsap-pet-clinic:latest .
         '''
             }
         }
