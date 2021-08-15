@@ -1,6 +1,13 @@
 pipeline {
     agent any 
     stages {
+        stage('Building the docker image') { 
+            steps {
+                sh '''
+           docker build -t owsap-pet-clinic:latest .
+        '''
+            }
+        }
         stage('Starting the website in a docker container ') { 
             steps {
                 sh '''
