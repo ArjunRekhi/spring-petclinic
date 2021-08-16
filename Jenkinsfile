@@ -34,7 +34,7 @@ sudo docker rm -f owasp-pet-zap
 fi
 
 echo "Starting a new container"
-sudo docker run -d -p 8080:8080 --name owasp-pet-zap owasp-pet-clinic:latest
+sudo docker run -d -p 8080:8080 --name owasp-pet-zap owasp-pet-clinic:v2
 
         '''
             }
@@ -50,7 +50,8 @@ fi
 
 wget 'https://raw.githubusercontent.com/ArjunRekhi/OWASP-Jenkins/master/zap.sh'
 chmod +x zap.sh
-sudo sh zap.sh http://192.168.149.128:8080/
+sudo sh zap.sh http://192.168.1.2:8080/
+sudo docker rm -f owasp-pet-zap
         '''
             
 publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'ZapReports', reportFiles: 'ZAP_Report_Alert.html', reportName: 'ZAP Report', reportTitles: ''])
