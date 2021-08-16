@@ -1,6 +1,21 @@
 pipeline {
     agent any 
     stages {
+   stage('Dependency-Check ') { 
+            steps {
+            sh '''
+#Dependency-Check
+if [ -f "dependency-check.sh" ]; then
+rm -rf dependency-check.sh
+fi
+
+sudo wget 'https://raw.githubusercontent.com/ArjunRekhi/OWASP-Jenkins/master/dependency-check.sh'
+sudo chmod +x dependency-check.sh
+sudo sh dependency-check.sh
+        '''
+publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'OWASP-Dependency-Check/reports', reportFiles: 'dependency-check-report.html', reportName: 'Dependency-Check-Report', reportTitles: ''])
+                        }
+        }
 //         stage('Building the docker image') { 
 //             steps {
 //                 sh '''
@@ -40,23 +55,6 @@ sudo sh zap.sh http://192.168.149.128:8080/
             
 publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'ZapReports', reportFiles: 'ZAP_Report_Alert.html', reportName: 'ZAP Report', reportTitles: ''])
             }
-        }
-        
-        
-    stage('Dependency-Check ') { 
-            steps {
-            sh '''
-#Dependency-Check
-if [ -f "dependency-check.sh" ]; then
-rm -rf dependency-check.sh
-fi
-
-sudo wget 'https://raw.githubusercontent.com/ArjunRekhi/OWASP-Jenkins/master/dependency-check.sh'
-sudo chmod +x dependency-check.sh
-sudo sh dependency-check.sh
-        '''
-publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'OWASP-Dependency-Check/reports', reportFiles: 'dependency-check-report.html', reportName: 'Dependency-Check-Report', reportTitles: ''])
-                        }
         }
         
     }
