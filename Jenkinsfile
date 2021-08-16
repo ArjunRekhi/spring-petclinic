@@ -34,7 +34,7 @@ sudo docker rm -f owasp-pet-zap
 fi
 
 echo "Starting a new container"
-sudo docker run -d -p 8080:8080 --name owasp-pet-zap owasp-pet-clinic:v2
+sudo docker run -d -p 8080:8080 --name owasp-pet-zap owasp-pet-clinic:latest
 
         '''
             }
