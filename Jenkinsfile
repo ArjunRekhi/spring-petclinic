@@ -16,13 +16,13 @@ sudo sh dependency-check.sh
 publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'OWASP-Dependency-Check/reports', reportFiles: 'dependency-check-report.html', reportName: 'Dependency-Check-Report', reportTitles: ''])
                         }
         }
-        stage('Building the docker image') { 
-            steps {
-                sh '''
-           sudo docker build -t owsap-pet-clinic:latest .
-        '''
-            }
-        }
+//         stage('Building the docker image') { 
+//             steps {
+//                 sh '''
+//            sudo docker build -t owsap-pet-clinic:latest .
+//         '''
+//             }
+//         }
         stage('Starting the website in a docker container ') { 
             steps {
                 sh '''
