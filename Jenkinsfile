@@ -23,19 +23,26 @@ publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, 
 //         '''
 //             }
 //         }
-        stage('Starting the website in a docker container ') { 
+//         stage('Starting the website in a docker container ') { 
+//             steps {
+//                 sh '''
+// if  sudo  docker ps -a | grep owasp-pet-zap
+// then
+// echo "Stopping the container"
+// sudo docker rm -f owasp-pet-zap
+
+// fi
+
+// echo "Starting a new container"
+// sudo docker run -d -p 8080:8080 --name owasp-pet-zap owasp-pet-clinic:latest
+
+//         '''
+//             }
+//         }
+        stage('Starting the website') { 
             steps {
                 sh '''
-if  sudo  docker ps -a | grep owasp-pet-zap
-then
-echo "Stopping the container"
-sudo docker rm -f owasp-pet-zap
-
-fi
-
-echo "Starting a new container"
-sudo docker run -d -p 8080:8080 --name owasp-pet-zap owasp-pet-clinic:latest
-
+     ./mvnw spring-boot:run
         '''
             }
         }
