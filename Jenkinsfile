@@ -16,36 +16,36 @@ sudo sh dependency-check.sh
 publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'OWASP-Dependency-Check/reports', reportFiles: 'dependency-check-report.html', reportName: 'Dependency-Check-Report', reportTitles: ''])
                         }
         }
-//         stage('Building the docker image') { 
-//             steps {
-//                 sh '''
-//            sudo docker build -t owsap-pet-clinic:latest .
-//         '''
-//             }
-//         }
-//         stage('Starting the website in a docker container ') { 
-//             steps {
-//                 sh '''
-// if  sudo  docker ps -a | grep owasp-pet-zap
-// then
-// echo "Stopping the container"
-// sudo docker rm -f owasp-pet-zap
-
-// fi
-
-// echo "Starting a new container"
-// sudo docker run -d -p 8080:8080 --name owasp-pet-zap owasp-pet-clinic:latest
-
-//         '''
-//             }
-//         }
-        stage('Starting the website') { 
+        stage('Building the docker image') { 
             steps {
                 sh '''
-     ./mvnw spring-boot:run
+           sudo docker build -t owsap-pet-clinic:latest /var/lib/jenkins/workspace/OWASP-Dependency-ZAP-Docker/
         '''
             }
         }
+        stage('Starting the website in a docker container ') { 
+            steps {
+                sh '''
+if  sudo  docker ps -a | grep owasp-pet-zap
+then
+echo "Stopping the container"
+sudo docker rm -f owasp-pet-zap
+
+fi
+
+echo "Starting a new container"
+sudo docker run -d -p 8080:8080 --name owasp-pet-zap owasp-pet-clinic:latest
+
+        '''
+            }
+        }
+//         stage('Starting the website') { 
+//             steps {
+//                 sh '''
+//      ./mvnw spring-boot:run
+//         '''
+//             }
+//         }
         
      stage('ZAP-Check ') { 
             steps {
